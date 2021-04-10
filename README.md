@@ -6,7 +6,7 @@ play_game.py will run the game, first asking for user input for the game ID and 
 
 play_game.py: Alternates between players. On opponents turn, waits for the API board to change then switches to my turn. On my turn, gets best move by calling minimax.py then makes the move. Checks for end-of-game after every move.
 
-minimax.py: Uses minimax search with alpha-beta pruning to get the values of each branch of the game tree and returns the best-valued move. Orders choice of next branch to expand by a successor function that puts moves that are more likely to win the game as the first choices. When the search tree reaches its maximum depth, it uses an evaluation function to determine the approximate value of a game state based on the number of possible winning and losing lines.
+minimax.py: Uses minimax search with alpha-beta pruning to get the values of each branch of the game tree and returns the best-valued move. Orders choice of next branch to expand by a successor function that puts moves that are more likely to win the game as the first choices. When the search tree reaches its maximum depth, it uses an evaluation function to determine the approximate value of a game state based on the number of moves in a row for each player.
 
 TTT.py: Holds structure for tic-tac-toe game and associated functions like evaluation function and function to determine terminal nodes.
 

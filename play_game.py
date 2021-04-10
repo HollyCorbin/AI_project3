@@ -1,21 +1,20 @@
 from API import *
-from TTT import *
-import minimax
+from TTT import TTT
 
-def play(game, team):
+def play(game, gameId, teamId):
     player = 'O'
     opponent = 'X'
     
     # if there is already value in board map, opponent made first move
-    board_map = get_board_map(game.gameId)
+    board_map = get_board_map(gameId)
     if board_map:
         # switch X/O values
         player = 'X'
         opponent = 'O'
         
         # add move to my board
-        move = get_moves(game.gameId)
-        game.move(opponent, move[0], move[1])
+        (row,col) = get_moves(gameId)
+        game.move(opponent, row, col)
     
     turn = player
     game.player = player
@@ -24,24 +23,24 @@ def play(game, team):
         
         # wait until opponent makes a move
         while turn == opponent:
-            board_map = get_board_map(game.gameId)
+            board_map = get_board_map(gameId)
             if len(board_map) > game.num_moves:
                 turn = player # switch palyers
-                move = get_moves(game.gameId) # add move to my board
-                game.move(opponent,move[0],move[1])
-                get_board_string(game.gameId) # print board just to see moves as they happen
+                (row,col) = get_moves(gameId) # add move to my board
+                game.move(opponent, row, col)
+                get_board_string(gameId) # print board just to see moves as they happen
                 
                 # check for end of game
                 terminal = game.end_game()
                 if terminal != 2: # state is a terminal node
                     return (terminal, None, None)
         
-        # call minimax to get best move
-        (value, row, col) = minimax.value(game, player)
-        make_move(game.gameId, teamId, row, col) # make move on API
+        (value, row, col) = minimax.value(game, player) # call minimax to get best move
+        make_move(gameId, teamId, row, col) # make move on API
         game.move(player, row, col) # make move on my board
-        get_board_string(game.gameId) #print board
+        get_board_string(gameId) #print board
         turn = opponent # switch players
+        
         
         # check for end of game
         terminal = game.end_game()
@@ -50,10 +49,11 @@ def play(game, team):
         
 
 
-
 # execution starts here
 teamId = 1275
 gameId = input('game Id: ')
+board_size = 12
+target = 6
 
-game = TTT(gameId, 12, 6) # TTT(gameId, board size, target)
-play(game, teamId)
+game = TTT(board size, target)
+play(game, gameId, teamId)

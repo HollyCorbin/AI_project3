@@ -185,7 +185,11 @@ def get_moves(game):
     
     # return most recent move
     response = data.decode("utf-8")
-    move = response.index('"move":')
-    row = response[move+8]
-    col = response[move+10]
+    moveX_start = response.index('"moveX":')
+    moveY_start = response.index(',"moveY":')
+    moveY_end = response.index('}],"code')
+    row = response[moveX_start+9:moveY_start-1]
+    col = response[moveY_start+10:moveY_end-1]
     return (int(row), int(col))
+
+get_moves(3196)
